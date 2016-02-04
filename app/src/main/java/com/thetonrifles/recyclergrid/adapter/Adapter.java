@@ -17,9 +17,10 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         TextView txt_label;
 
-        public GridViewHolder(View itemView) {
+        public GridViewHolder(View itemView, int width) {
             super(itemView);
             txt_label = (TextView) itemView.findViewById(R.id.txt_label);
+            txt_label.setMinimumWidth(width);
         }
 
     }
@@ -62,9 +63,8 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             View itemView = mLayoutInflater.inflate(R.layout.view_grid_item, parent, false);
             // work here if you need to control height of your items
             // keep in mind that parent is RecyclerView in this case
-            int height = parent.getMeasuredHeight() / 4;
-            itemView.setMinimumHeight(height);
-            return new GridViewHolder(itemView);
+            int width = parent.getMeasuredWidth() / 2;
+            return new GridViewHolder(itemView, width);
         } else {
             View itemView = mLayoutInflater.inflate(R.layout.view_list_item, parent, false);
             return new ListViewHolder(itemView);

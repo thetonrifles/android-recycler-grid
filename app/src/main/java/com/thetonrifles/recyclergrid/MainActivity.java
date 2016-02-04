@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import com.thetonrifles.recyclergrid.adapter.AbstractItem;
 import com.thetonrifles.recyclergrid.adapter.Adapter;
 import com.thetonrifles.recyclergrid.adapter.GridItem;
-import com.thetonrifles.recyclergrid.adapter.ListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
         mItems.add(new GridItem("grid item 2"));
         mItems.add(new GridItem("grid item 3"));
         mItems.add(new GridItem("grid item 4"));
-        mItems.add(new ListItem("list item 1"));
-        mItems.add(new ListItem("list item 2"));
-        mItems.add(new ListItem("list item 3"));
-        mItems.add(new ListItem("list item 4"));
+        mItems.add(new GridItem("grid item 5"));
 
         // building layout manager... this is the most important part
         // we define a grid view with 2 columns
@@ -42,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getType()) {
                     case AbstractItem.GRID_TYPE:
                         // grid items to take 1 column
-                        return 1;
+                        if (mItems.size() % 2 == 0) {
+                            return 1;
+                        } else {
+                            return (position == mItems.size()-1) ? 2 : 1;
+                        }
                     default:
                         // list items to take 2 columns
                         return 2;
