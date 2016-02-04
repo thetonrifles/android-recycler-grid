@@ -1,7 +1,6 @@
 package com.thetonrifles.recyclergrid.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +16,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.GridViewHolder> {
 
     protected class GridViewHolder extends RecyclerView.ViewHolder {
 
-        CardView card;
+        View card;
         TextView txt_label;
         ImageView img_banner;
 
         public GridViewHolder(View itemView, int width) {
             super(itemView);
-            card = (CardView) itemView.findViewById(R.id.card);
+            card = itemView.findViewById(R.id.card);
             txt_label = (TextView) itemView.findViewById(R.id.tvCard);
             img_banner = (ImageView) itemView.findViewById(R.id.ivCard);
-            card.setMinimumWidth(width);
+//            card.setMinimumWidth(width);
+            card.getLayoutParams().width = width;
         }
 
     }
