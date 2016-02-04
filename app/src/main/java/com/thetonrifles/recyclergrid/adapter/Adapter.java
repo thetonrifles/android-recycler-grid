@@ -21,11 +21,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.GridViewHolder> {
         ImageView img_banner;
 
         public GridViewHolder(View itemView, int width) {
-            super(itemView);
+            super(itemView); 
             card = itemView.findViewById(R.id.card);
             txt_label = (TextView) itemView.findViewById(R.id.tvCard);
             img_banner = (ImageView) itemView.findViewById(R.id.ivCard);
-//            card.setMinimumWidth(width);
             card.getLayoutParams().width = width;
         }
 
