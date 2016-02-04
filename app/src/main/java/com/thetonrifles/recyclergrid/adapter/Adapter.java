@@ -49,17 +49,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.GridViewHolder> {
 
     @Override
     public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = mLayoutInflater.inflate(R.layout.view_grid_item, parent, false);
-            // work here if you need to control height of your items
-            // keep in mind that parent is RecyclerView in this case
-            int width = parent.getMeasuredWidth() / 2;
-            return new GridViewHolder(itemView, width);
+        View itemView = mLayoutInflater.inflate(R.layout.view_grid_item, parent, false);
+        // let's start by considering number of columns
+        int width = parent.getMeasuredWidth() / 2;
+        // then, let's remove recyclerview padding
+        width -= mContext.getResources().getDimensionPixelSize(R.dimen.recycler_view_padding);
+        return new GridViewHolder(itemView, width);
     }
 
     @Override
     public void onBindViewHolder(GridViewHolder viewHolder, int position) {
-            GridItem item = mItems.get(position);
-            viewHolder.txt_label.setText(item.getLabel());
+        GridItem item = mItems.get(position);
+        viewHolder.txt_label.setText(item.getLabel());
     }
 
 }

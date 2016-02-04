@@ -21,11 +21,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mItems = new ArrayList<>();
-        mItems.add(new GridItem("grid item 1"));
-        mItems.add(new GridItem("grid item 2"));
-        mItems.add(new GridItem("grid item 3"));
-        mItems.add(new GridItem("grid item 4"));
-        mItems.add(new GridItem("grid item 5"));
+        mItems.add(new GridItem("Q"));
+        mItems.add(new GridItem("W"));
+        mItems.add(new GridItem("E"));
+        mItems.add(new GridItem("R"));
+        mItems.add(new GridItem("T"));
+        mItems.add(new GridItem("Y"));
+        mItems.add(new GridItem("U"));
+        mItems.add(new GridItem("I"));
+        mItems.add(new GridItem("O"));
+        mItems.add(new GridItem("P"));
+        mItems.add(new GridItem("A"));
+        mItems.add(new GridItem("S"));
+        mItems.add(new GridItem("D"));
 
         GridLayoutManager manager = new GridLayoutManager(this, 2);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
