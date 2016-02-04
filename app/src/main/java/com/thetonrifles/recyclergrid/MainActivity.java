@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.thetonrifles.recyclergrid.adapter.AbstractItem;
 import com.thetonrifles.recyclergrid.adapter.Adapter;
 import com.thetonrifles.recyclergrid.adapter.GridItem;
 
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<AbstractItem> mItems;
+    private List<GridItem> mItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +27,14 @@ public class MainActivity extends AppCompatActivity {
         mItems.add(new GridItem("grid item 4"));
         mItems.add(new GridItem("grid item 5"));
 
-        // building layout manager... this is the most important part
-        // we define a grid view with 2 columns
         GridLayoutManager manager = new GridLayoutManager(this, 2);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                AbstractItem item = mItems.get(position);
-                switch (item.getType()) {
-                    case AbstractItem.GRID_TYPE:
-                        // grid items to take 1 column
-                        if (mItems.size() % 2 == 0) {
-                            return 1;
-                        } else {
-                            return (position == mItems.size()-1) ? 2 : 1;
-                        }
-                    default:
-                        // list items to take 2 columns
-                        return 2;
+                if (mItems.size() % 2 == 0) {
+                    return 1;
+                } else {
+                    return (position == mItems.size() - 1) ? 2 : 1;
                 }
             }
         });
