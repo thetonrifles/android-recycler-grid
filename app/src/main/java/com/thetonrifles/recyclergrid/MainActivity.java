@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (mItems.size() % 2 == 0) {
-                    return 1;
-                } else {
+                if (mItems.size() % 2 != 0) {
                     return (position == mItems.size() - 1) ? 2 : 1;
+                } else {
+                    return 1;
                 }
             }
         });
