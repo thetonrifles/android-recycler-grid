@@ -1,9 +1,10 @@
-package com.thetonrifles.recyclergrid.adapter;
+package com.thetonrifles.recyclergrid;
 
 public abstract class AbstractItem {
 
-    public static final int GRID_TYPE = 0;
-    public static final int LIST_TYPE = 1;
+    public static final int TYPE_CENTER = 0;
+    public static final int TYPE_EDGE = 1;
+    public static final int TYPE_EMPTY = 2;
 
     private String label;
 
@@ -13,10 +14,6 @@ public abstract class AbstractItem {
 
     public String getLabel() {
         return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     abstract public int getType();
