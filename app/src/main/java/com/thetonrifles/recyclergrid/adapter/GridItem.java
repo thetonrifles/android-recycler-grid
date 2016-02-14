@@ -1,14 +1,19 @@
 package com.thetonrifles.recyclergrid.adapter;
 
-public class GridItem extends AbstractItem {
+public class GridItem {
+
+    private String label;
 
     public GridItem(String label) {
-        super(label);
+        this.label = label;
     }
 
-    @Override
-    public int getType() {
-        return GRID_TYPE;
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
 }

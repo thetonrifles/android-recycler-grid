@@ -11,25 +11,13 @@ import com.thetonrifles.recyclergrid.R;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class Adapter extends RecyclerView.Adapter<Adapter.GridViewHolder> {
 
-    private static class GridViewHolder extends RecyclerView.ViewHolder {
-
-        TextView txt_label;
-
-        public GridViewHolder(View itemView, int width) {
-            super(itemView);
-            txt_label = (TextView) itemView.findViewById(R.id.txt_label);
-            txt_label.setMinimumWidth(width);
-        }
-
-    }
-
-    private class ListViewHolder extends RecyclerView.ViewHolder {
+    protected static class GridViewHolder extends RecyclerView.ViewHolder {
 
         TextView txt_label;
 
-        public ListViewHolder(View itemView) {
+        public GridViewHolder(View itemView) {
             super(itemView);
             txt_label = (TextView) itemView.findViewById(R.id.txt_label);
         }
@@ -39,9 +27,9 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
-    private List<AbstractItem> mItems;
+    private List<GridItem> mItems;
 
-    public Adapter(Context context, List<AbstractItem> items) {
+    public Adapter(Context context, List<GridItem> items) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mItems = items;
@@ -53,36 +41,15 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return mItems.get(position).getType();
+    public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = mLayoutInflater.inflate(R.layout.view_grid_item, parent, false);
+        return new GridViewHolder(itemView);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == AbstractItem.GRID_TYPE) {
-            View itemView = mLayoutInflater.inflate(R.layout.view_grid_item, parent, false);
-            // work here if you need to control height of your items
-            // keep in mind that parent is RecyclerView in this case
-            int width = parent.getMeasuredWidth() / 2;
-            return new GridViewHolder(itemView, width);
-        } else {
-            View itemView = mLayoutInflater.inflate(R.layout.view_list_item, parent, false);
-            return new ListViewHolder(itemView);
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
-        int type = getItemViewType(position);
-        if (type == AbstractItem.GRID_TYPE) {
-            GridItem item = (GridItem) mItems.get(position);
-            GridViewHolder holder = (GridViewHolder) viewHolder;
-            holder.txt_label.setText(item.getLabel());
-        } else {
-            ListItem item = (ListItem) mItems.get(position);
-            ListViewHolder holder = (ListViewHolder) viewHolder;
-            holder.txt_label.setText(item.getLabel());
-        }
+    public void onBindViewHolder(GridViewHolder holder, int position) {
+        GridItem item = mItems.get(position);
+        holder.txt_label.setText(item.getLabel());
     }
 
 }
