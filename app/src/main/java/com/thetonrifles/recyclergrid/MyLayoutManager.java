@@ -9,12 +9,14 @@ public class MyLayoutManager extends RecyclerView.LayoutManager {
 
     private static final int SCROLL_DISTANCE = 80; // dp
 
+    private int mColumns;
     private int mFirstPosition = 0;
     private final int mScrollDistance;
 
-    public MyLayoutManager(Context c) {
+    public MyLayoutManager(Context c, int columns) {
         final DisplayMetrics dm = c.getResources().getDisplayMetrics();
         mScrollDistance = (int) (SCROLL_DISTANCE * dm.density + 0.5f);
+        mColumns = columns;
     }
 
     @Override
@@ -55,20 +57,30 @@ public class MyLayoutManager extends RecyclerView.LayoutManager {
         // detach all views making them available
         // for usage in scrap heap
         detachAndScrapAttachedViews(recycler);
-
-        int top = oldTop;
-        int bottom;
-        final int left = getPaddingLeft();
-        final int right = getWidth() - getPaddingRight();
+        // rendering views
+        int top, left, right, bottom;
+        top = oldTop;
         final int count = state.getItemCount();
-        for (int i = 0; mFirstPosition + i < count && top < parentBottom; i++, top = bottom) {
+        for (int i = 0; mFirstPosition + i < count && top < parentBottom; i++) {
             // getting view from recycler and render
             View v = recycler.getViewForPosition(mFirstPosition + i);
             addView(v, i);
             measureChildWithMargins(v, 0, 0);
+            // evaluating horizontal index
+            int k = i % mColumns;
+            // evaluating position
             bottom = top + getDecoratedMeasuredHeight(v);
+            left = getPaddingLeft() + (k * (getWidth()/mColumns));
+            right = left + (getWidth()/mColumns);
             layoutDecorated(v, left, top, right, bottom);
+            if (k == mColumns - 1) {
+                top = bottom;
+            }
         }
+    }
+
+    private int getFirstItemSlots() {
+        return mColumns / 2;
     }
 
     @Override

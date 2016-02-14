@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             mItems.add(new GridItem("item " + (i+1)));
         }
 
-        MyLayoutManager manager = new MyLayoutManager(this);
+        MyLayoutManager manager = new MyLayoutManager(this, 5);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lst_items);
         recyclerView.setLayoutManager(manager);
         Adapter adapter = new Adapter(this, mItems);
