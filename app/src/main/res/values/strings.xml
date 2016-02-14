@@ -2,5 +2,6 @@
 
     <string name="app_name">RecyclerGrid</string>
     <string name="btn_open_list">Open List</string>
+    <string name="action_search">Search</string>
 
 </resources>

@@ -1,10 +1,10 @@
 package com.thetonrifles.recyclergrid.adapter;
 
-public class GridItem {
+public class ListItem {
 
     private String label;
 
-    public GridItem(String label) {
+    public ListItem(String label) {
         this.label = label;
     }
 
