@@ -42,6 +42,7 @@ public class FragmentB extends Fragment implements SearchView.OnQueryTextListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_b, container, false);
+        mRecyclerView = (RecyclerView) layout.findViewById(R.id.lst_items);
         return layout;
     }
 
@@ -67,7 +68,6 @@ public class FragmentB extends Fragment implements SearchView.OnQueryTextListene
         mFilteredItems = new ArrayList<>();
         mFilteredItems.addAll(mAllItems);
 
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.lst_items);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new Adapter(getActivity(), mFilteredItems);
         mRecyclerView.setAdapter(mAdapter);
