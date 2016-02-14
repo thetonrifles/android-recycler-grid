@@ -58,9 +58,10 @@ public class MyLayoutManager extends RecyclerView.LayoutManager {
         // for usage in scrap heap
         detachAndScrapAttachedViews(recycler);
         // rendering views
-        int top, left, right, bottom;
-        top = oldTop;
-        final int count = state.getItemCount();
+        int headerItems = mColumns;
+        int top = oldTop;
+        int left, right, bottom;
+        int count = state.getItemCount();
         for (int i = 0; mFirstPosition + i < count && top < parentBottom; i++) {
             // getting view from recycler and render
             View v = recycler.getViewForPosition(mFirstPosition + i);
@@ -69,18 +70,35 @@ public class MyLayoutManager extends RecyclerView.LayoutManager {
             // evaluating horizontal index
             int k = i % mColumns;
             // evaluating position
-            bottom = top + getDecoratedMeasuredHeight(v);
-            left = getPaddingLeft() + (k * (getWidth()/mColumns));
-            right = left + (getWidth()/mColumns);
-            layoutDecorated(v, left, top, right, bottom);
-            if (k == mColumns - 1) {
-                top = bottom;
+            if (i < headerItems) {
+                if (i == 0) {
+                    // rendering first item
+                    bottom = top + ((headerItems - 1)* getDecoratedMeasuredHeight(v));
+                    left = getPaddingLeft() + (k * (getWidth() / mColumns));
+                    right = left + ((headerItems - 1) * (getWidth() / mColumns));
+                    layoutDecorated(v, left, top, right, bottom);
+                } else {
+                    // rendering items after first
+                    // to be in last column
+                    if (i == 1) {
+                        top = oldTop;
+                    }
+                    bottom = top + getDecoratedMeasuredHeight(v);
+                    left = getPaddingLeft() + ((headerItems - 1) * (getWidth() / mColumns));
+                    right = left + (getWidth() / mColumns);
+                    layoutDecorated(v, left, top, right, bottom);
+                    top = bottom;
+                }
+            } else {
+                bottom = top + getDecoratedMeasuredHeight(v);
+                left = getPaddingLeft() + (k * (getWidth() / mColumns));
+                right = left + (getWidth() / mColumns);
+                layoutDecorated(v, left, top, right, bottom);
+                if (k == mColumns - 1) {
+                    top = bottom;
+                }
             }
         }
-    }
-
-    private int getFirstItemSlots() {
-        return mColumns / 2;
     }
 
     @Override
