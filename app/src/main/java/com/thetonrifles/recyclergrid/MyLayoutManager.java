@@ -103,7 +103,9 @@ public class MyLayoutManager extends RecyclerView.LayoutManager {
 
     @Override
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        // no child views?
         if (getChildCount() == 0) {
+            // no scrolling
             return 0;
         }
         int scrolled = 0;

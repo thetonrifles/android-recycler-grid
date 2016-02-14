@@ -1,6 +1,7 @@
 package com.thetonrifles.recyclergrid.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.thetonrifles.recyclergrid.R;
 
 import java.util.List;
+import java.util.Random;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.GridViewHolder> {
 
@@ -43,7 +45,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.GridViewHolder> {
     @Override
     public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mLayoutInflater.inflate(R.layout.view_grid_item, parent, false);
+        itemView.setBackgroundColor(getRandomColor());
         return new GridViewHolder(itemView);
+    }
+
+    private int getRandomColor() {
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
     @Override

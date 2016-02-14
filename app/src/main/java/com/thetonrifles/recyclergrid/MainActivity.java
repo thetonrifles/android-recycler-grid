@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
         mItems = new ArrayList<>();
         for (int i=0; i<50; i++) {
-            mItems.add(new GridItem("item " + (i+1)));
+            mItems.add(new GridItem(String.valueOf(i+1)));
         }
 
-        MyLayoutManager manager = new MyLayoutManager(this, 5);
+        MyLayoutManager manager = new MyLayoutManager(this, 3);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lst_items);
         recyclerView.setLayoutManager(manager);
         Adapter adapter = new Adapter(this, mItems);
