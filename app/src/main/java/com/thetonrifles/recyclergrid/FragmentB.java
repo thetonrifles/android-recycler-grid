@@ -22,6 +22,7 @@ import java.util.List;
 
 public class FragmentB extends Fragment implements SearchView.OnQueryTextListener {
 
+    private SearchView mSearchView;
     private RecyclerView mRecyclerView;
     private Adapter mAdapter;
     private List<ListItem> mAllItems;
@@ -31,6 +32,9 @@ public class FragmentB extends Fragment implements SearchView.OnQueryTextListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mSearchQuery = savedInstanceState.getString("query");
+        }
         setHasOptionsMenu(true);
     }
 
@@ -70,19 +74,29 @@ public class FragmentB extends Fragment implements SearchView.OnQueryTextListene
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("query", mSearchQuery);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        searchView.setOnQueryTextListener(this);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
+        mSearchView.setOnQueryTextListener(this);
+        if (mSearchQuery != null) {
+            mSearchView.setQuery(mSearchQuery, true);
+        }
     }
 
     @Override
     public boolean onQueryTextChange(String query) {
-        mSearchQuery = query.toLowerCase();
+        mSearchQuery = query;
         mFilteredItems.clear();
         for (ListItem item : mAllItems) {
-            if (item.getLabel().toLowerCase().contains(mSearchQuery)) {
+            if (item.getLabel().toLowerCase()
+                    .contains(mSearchQuery.toLowerCase())) {
                 mFilteredItems.add(item);
             }
         }

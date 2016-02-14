@@ -12,10 +12,12 @@ public class TestActivity extends AppCompatActivity implements FragmentA.Callbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.container, new FragmentA());
-        ft.commit();
+        if (savedInstanceState == null) {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.container, new FragmentA());
+            ft.commit();
+        }
     }
 
     @Override
@@ -29,7 +31,7 @@ public class TestActivity extends AppCompatActivity implements FragmentA.Callbac
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
